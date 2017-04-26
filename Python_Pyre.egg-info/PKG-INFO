@@ -1,0 +1,15 @@
+Metadata-Version: 1.1
+Name: Python-Pyre
+Version: 1.0.0
+Summary: Instantly generate GUI functionality for any Python program using Python-Pyre.
+Home-page: https://github.com/cutwell/Python-Pyre
+Author: Zachary Smith
+Author-email: zachsmith.dev@gmail.com
+License: MIT
+Description: UNKNOWN
+Keywords: automated gui generation
+Platform: UNKNOWN
+Classifier: Development Status :: 5 - Stable
+Classifier: Intended Audience :: Developers
+Classifier: License :: MIT License
+Classifier: Programming Language :: Python :: 3
