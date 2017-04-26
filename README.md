@@ -1,6 +1,6 @@
 # Python-Pyre
 ---
-_Instantly generate GUI functionality for any Python program using Python-Pyre._
+_Generate a TkInter GUI from any Python program using Pyre_
 
  - Creates a TkInter GUI to replace any command line interface
  - Interprets your existing code, removing the need for programming a GUI by hand.
