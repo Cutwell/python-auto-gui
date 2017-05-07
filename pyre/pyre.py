@@ -40,12 +40,12 @@ def Pyre(background="white", foreground="black"):
     #  binding for Linux
     pyre_canvas.bind("<Button-4>", pyre_mouseUpdate)
     pyre_canvas.bind("<Button-5>", pyre_mouseUpdate)
-    
+
     #  binding for Mac OS and Windows
     pyre_canvas.bind("<MouseWheel>", pyre_mouseUpdate)
 
     pyre_canvas.bind("<Configure>", pyre_frameUpdate)
-    
+
     pyre_root.update()
 
 def pyre_mouseUpdate(event):
@@ -60,14 +60,14 @@ def pyre_frameUpdate(*args):
     width = pyre_root.winfo_width()-pyre_scrollbar.winfo_width()-1
     pyre_canvas.config(height=pyre_root.winfo_height(), width=width)
     pyre_canvas.move(pyre_frame, 0, 0)
-        
+
 def print(text=""):
     global pyre_root, pyre_bg, pyre_fg, pyre_script, pyre_objects, pyre_y, pyre_canvas, pyre_frame
     pyre_objects.insert(0, tk.Label(pyre_frame, text=text, bg=pyre_bg, fg=pyre_fg, padx=2, pady=2, font=("Courier New", 11)))
     pyre_objects[0].grid(row=pyre_y, column=0, sticky="w", padx=5, pady=5)
     pyre_y += 1
 
-    
+
     pyre_canvas.configure(scrollregion=pyre_canvas.bbox("all"))
     pyre_root.update()
     return
