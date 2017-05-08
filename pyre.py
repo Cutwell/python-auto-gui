@@ -40,7 +40,10 @@ def Pyre(background="white", foreground="black"):
     #  binding for Linux
     pyre_canvas.bind("<Button-4>", pyre_mouseUpdate)
     pyre_canvas.bind("<Button-5>", pyre_mouseUpdate)
+<<<<<<< HEAD:pyre/pyre.py
 
+=======
+>>>>>>> origin/master:pyre.py
     #  binding for Mac OS and Windows
     pyre_canvas.bind("<MouseWheel>", pyre_mouseUpdate)
 
@@ -50,15 +53,16 @@ def Pyre(background="white", foreground="black"):
 
 def pyre_mouseUpdate(event):
     global pyre_canvas, pyre_scrollbar
-    if event.num == 5 or event.delta == -120:
-        pyre_canvas.yview_scroll(int(-10*(event.delta/120)), "units")
-    if event.num == 4 or event.delta == 120:
-        pyre_canvas.yview_scroll(int(-10*(event.delta/120)), "units")
+    if event.delta == -120:
+        pyre_canvas.yview_scroll(10, "units")
+    if event.delta == 120:
+        pyre_canvas.yview_scroll(-10, "units")
 
 def pyre_frameUpdate(*args):
     global pyre_frame, pyre_canvas, pyre_scrollbar
     width = pyre_root.winfo_width()-pyre_scrollbar.winfo_width()-1
     pyre_canvas.config(height=pyre_root.winfo_height(), width=width)
+    pyre_canvas.configure(scrollregion=pyre_canvas.bbox("all"))
     pyre_canvas.move(pyre_frame, 0, 0)
 
 def print(text=""):
@@ -67,9 +71,13 @@ def print(text=""):
     pyre_objects[0].grid(row=pyre_y, column=0, sticky="w", padx=5, pady=5)
     pyre_y += 1
 
+<<<<<<< HEAD:pyre/pyre.py
 
     pyre_canvas.configure(scrollregion=pyre_canvas.bbox("all"))
+=======
+>>>>>>> origin/master:pyre.py
     pyre_root.update()
+    pyre_canvas.configure(scrollregion=pyre_canvas.bbox("all"))
     return
 
 def input(text=""):
@@ -115,14 +123,12 @@ def input(text=""):
     pyre_y += 1
     pyre_objects[0].bind("<Return>", lambda event: callback())
 
-    pyre_canvas.configure(scrollregion=pyre_canvas.bbox("all"))
-
     global pyre_breakout
-    pyre_breakout = False
-    default_cleared = False
+    pyre_breakout, default_cleared = False, False
     while pyre_breakout == False:
         try:
             pyre_root.update()
+            pyre_canvas.configure(scrollregion=pyre_canvas.bbox("all"))
             if pyre_root.focus_get() == pyre_objects[0] and default_cleared == False:
                 default_cleared = True
                 pyre_objects[0].delete(0, len(text))
@@ -132,6 +138,8 @@ def input(text=""):
     pyre_objects[0].configure(state="disabled")
     pyre_objects[0].unbind("<Return>")
     pyre_root.update()
+    pyre_canvas.configure(scrollregion=pyre_canvas.bbox("all"))
+    
 
     try:
         return str(pyre_objects[0].get())
