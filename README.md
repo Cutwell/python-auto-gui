@@ -8,17 +8,12 @@ _Generate a TkInter GUI from any Python program using Pyre_
 
 Python-Pyre is a Python Library built to generate simple GUI's for applications.
 It can take absolutely any user-orientated Python Program and produce tidy applications.
----
-## Warning: Currently in beta testing:
 
-The instructions under headings "Quick-start, 10 Second Example, Quick Reference" may refer to practices currently unsupported or unavailable.
-If you want to test Python-Pyre, download the repository and move it into a test folder and import from that directory.
----
 ### Quick-start
 ---
-Install Pyre using pip:
+Install Pyre using setup.py:
 ```bash
-$ pip install PythonPyre
+$ python setup.py install
 ```
 Once installed, open any python script in a text editor of your choice and paste these two lines of code into the top of the program:
 ```python
