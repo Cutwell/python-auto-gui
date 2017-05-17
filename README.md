@@ -1,4 +1,4 @@
-# Python-Pyre
+![Python-Pyre](images/pyreposter.jpg)
 ---
 _Generate a TkInter GUI from any Python program using Pyre_
 
