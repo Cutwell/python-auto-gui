@@ -1,4 +1,4 @@
-![Python-Pyre](images/pyreposter.jpg)
+# Python-Pyre
 ---
 _Generate a TkInter GUI from any Python program using Pyre_
 
@@ -11,11 +11,6 @@ It can take absolutely any user-orientated Python Program and produce tidy appli
 
 ### Quick-start
 ---
-Install Pyre using setup.py:
-```bash
-$ python setup.py install
-```
-Once installed, open any python script in a text editor of your choice and paste these two lines of code into the top of the program:
 ```python
 from pyre import *
 Pyre()
@@ -43,8 +38,7 @@ print("Hello, "+myAnswer)
 
 | Setup               | Command                                      |
 | :-----------------: | :------------------------------------------: |
-| install from source | ```bash $ cd ~/Desktop/Python-Pyre-Master``` |
-|                     | ```bash $ python setup.py install```         |
+| install from pip    | ```bash $ pip3 install pyre```               |
 ---
 | Function            | New Function                                                |
 | :-----------------: | :---------------------------------------------------------: |
@@ -52,17 +46,17 @@ print("Hello, "+myAnswer)
 | ```var = input()``` | Creates a text box and waits for the user to enter an input |
 | ```print()```       | Creates a label with the passed text                        |
 
-### Compatability and Notes
+### Compatibility and Notes
 ---
 Pyre is not system-specific, and should work on Windows and Unix systems (including Apple OS).
 
-Pyre's compatability with different modules can vary - if a particular module doesnt work well with Pyre, report it in Issues or contribute a fix to improve the project.
+Pyre's compatibility with different modules can vary - if a particular module doesn't work well with Pyre, report it in Issues or contribute a fix to improve the project.
 
-Pyre uses Tkinter, and as such programs that already make use of Tkinter may not work together well. All of Pyres global variables use the pyre_ prefix to prevent logic errors, meaning that it is possible to use Pyre to generate GUI interfaces that may have previously been confined to the command line.
-When incorportating Pyre into your programs, be aware that print() and input() are both overriden by the library - but you can print to the console using the sys library:
+Pyre uses TkInter, and as such programs that already make use of TkInter may not work together well. All of Pyres global variables use the pyre_ prefix to prevent logic errors, meaning that it is possible to use Pyre to generate GUI interfaces that may have previously been confined to the command line.
+When incorporating Pyre into your programs, be aware that print() and input() are both overridden by the library - but you can print to the console using the sys library:
 ```python
 import sys
 sys.stdout.write("writes to console")
 ```
 
-Be aware that the Tkinter GUI will only update while print() or input() is being called (due to issues with concurrency and Tkinter). For this reason, your program will hang during periods of inactivity (eg: during long computations or while the program is sleeping).
+Be aware that the TkInter GUI will only update while print() or input() is being called (due to issues with concurrency and TkInter). For this reason, your GUI will hang during periods of inactivity (e.g.: during long computations or while the program is sleeping).
