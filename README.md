@@ -1,62 +1,73 @@
-# Python-Pyre
----
-_Generate a TkInter GUI from any Python program using Pyre_
+# Python automatic GUI
+_Generate a Tkinter GUI from any Python program_
 
- - Creates a TkInter GUI to replace any command line interface
- - Interprets your existing code, removing the need for programming a GUI by hand.
- - Capable of being integrated with any existing Python (3.5+) code
+- Creates a Tkinter GUI to replace any command line interface
+- Interprets your existing code, removing the need for programming a GUI by hand.
+- Dynamically generates tidy applications, with quality of life features such as exporting data to CSV or PDF.
 
-Python-Pyre is a Python Library built to generate simple GUI's for applications.
-It can take absolutely any user-orientated Python Program and produce tidy applications.
-
-### Quick-start
----
+## Quick-start
 ```python
-from pyre import *
-Pyre()
-```
-This will override any input() or print() functions used in the program to create a GUI
-
-### 10 Second Example
----
-Get up and running with basics of Pyre using this simple example:
-```python
-from pyre import *
-Pyre()
-
-myAnswer = input("What is your name? >")
-
-input("press anywhere to continue")
-
-print("Hello, "+myAnswer)
+from autogui import print, input, run   # import overrides, and run function
+run()   # start GUI
 ```
 
-
-### Quick Reference
----
-(_for more in-depth explanations, etc., read the docs._)
-
-| Setup               | Command                                      |
-| :-----------------: | :------------------------------------------: |
-| install from pip    | ```bash $ pip3 install pyre```               |
----
-| Function            | New Function                                                |
-| :-----------------: | :---------------------------------------------------------: |
-| ```input()```       | Creates a button and waits for the user to press it         |
-| ```var = input()``` | Creates a text box and waits for the user to enter an input |
-| ```print()```       | Creates a label with the passed text                        |
-
-### Compatibility and Notes
----
-Pyre is not system-specific, and should work on Windows and Unix systems (including Apple OS).
-
-Pyre's compatibility with different modules can vary - if a particular module doesn't work well with Pyre, report it in Issues or contribute a fix to improve the project.
-
-Pyre uses TkInter, and as such programs that already make use of TkInter may not work together well. All of Pyres global variables use the pyre_ prefix to prevent logic errors, meaning that it is possible to use Pyre to generate GUI interfaces that may have previously been confined to the command line.
-When incorporating Pyre into your programs, be aware that print() and input() are both overridden by the library - but you can print to the console using the sys library:
+### 10 second example
 ```python
-import sys
-sys.stdout.write("writes to console")
+from autogui import print, input, run   # import overrides, and run function
+run()   # start GUI
+
+myAnswer = input("What is your name?")    # renders a textbox and waits for user input
+
+input("Click me to continue")   # renders a button and waits for user input
+
+print("Hello, "+myAnswer)   # renders text
 ```
 
-Be aware that the TkInter GUI will only update while print() or input() is being called (due to issues with concurrency and TkInter). For this reason, your GUI will hang during periods of inactivity (e.g.: during long computations or while the program is sleeping).
+| Function | Feature |
+| :---: | :---: |
+| `input()` | Creates a button and waits for the user to press it |
+| `var = input()` | Creates a text box and waits for the user to enter an input |
+| `print()` | Creates a label with the passed text |
+
+### Footer + export options
+```python
+from autogui import input, run, footer   # import overrides, and run + footer functions
+run()   # start GUI
+
+myAnswer = input("What is your name?")    # renders a textbox and waits for user input
+
+footer()   # renders a footer with export options
+```
+
+- The footer function is an optional function that can be called at the end of your program to render a footer with export options.
+- These export options are:
+
+| Export | Function |
+| :---: | :---: |
+| `CSV` | Export Q/A's as a CSV file. |
+| `PDF` | Export as a PDF document (currently TODO). |
+| `JPG` | Export as a JPG image (currently TODO). |
+
+- PDF and JPG export are not yet implemented, as usual methods of exporting the tkinter canvas using postscript don't support export of widgets.
+
+## Explaining the code
+In order to work as a drop-in solution for existing code, we override existing functions in the Python language.
+
+*Print*: The print function is overridden to create a label with the passed text. 
+
+*Input*: The input function analyzes the function call to determine if the user is requesting a text box or a button. If the function saves the returned value to a variable, it will create a text box. If the function output is not saved to a variable, it will create a button.
+
+*Thread communication*: The Tkinter GUI runs in a seperate thread to the main application, in order to prevent UI blocking. Communication between the main application and the GUI is done using queues. Print and Input functions place messages in the queue, and the GUI reads them and renders the appropriate UI. The GUI can also place messages on a seperate queue, for instance to return user input from text boxes or buttons to the main application.
+
+## Themeing
+Tkinter supports themes to improve the default look and feel of the GUI.
+[rdbende/Azure-ttk-theme](https://github.com/rdbende/Azure-ttk-theme) is the default theme shipped with this package (with "light" (default) and "dark" themes).
+
+*Setting a new theme*
+```python
+from autogui import print, input, run   # import overrides, and run function
+run(theme_name="light", theme_source="folder/new_theme.tcl")   # start GUI
+```
+
+## License
+[MIT](https://opensource.org/licenses/MIT)
