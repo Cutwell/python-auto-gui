@@ -7,7 +7,7 @@ _Generate a Tkinter GUI from any Python program_
 
 | | | |
 |---|---|---|
-| ![adventure](.github/images/adventure.png) | ![quiz](.github/images/quiz.png) | ![greetings](.github/images/greetings.png) |
+| ![adventure](https://github.com/Cutwell/python-auto-gui/blob/6071edf6515bb744957a6ed5b13f2c43597783d1/.github/images/adventure.png) | ![quiz](https://github.com/Cutwell/python-auto-gui/blob/6071edf6515bb744957a6ed5b13f2c43597783d1/.github/images/quiz.png) | ![greetings](https://github.com/Cutwell/python-auto-gui/blob/6071edf6515bb744957a6ed5b13f2c43597783d1/.github/images/greetings.png) |
 | A choose-your-own adventure | A simple maths quiz | A hello world example |
 
 ## Quick-start
