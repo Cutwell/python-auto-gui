@@ -9,8 +9,6 @@ import threading
 from inspect import currentframe
 import re
 from functools import partial
-import asynctkinter as at
-from tkfontawesome import icon_to_image
 from queue import Queue
 import logging
 import sys
@@ -38,22 +36,6 @@ __threadsafe_queue_io__ = Queue()
 __script__ = get_file_script()
 __input_log__ = []
 __autogui__ = None
-
-at.patch_unbind()
-
-
-def change_theme(root, theme_button, event):
-    # NOTE: The theme's real name is azure-<mode>
-    if root.tk.call("ttk::style", "theme", "use") == "azure-dark":
-        # Set light theme
-        root.tk.call("set_theme", "light")
-        light_icon = icon_to_image("sun", fill="#fff", scale_to_width=64)
-        theme_button.configure(image=light_icon)
-    else:
-        # Set dark theme
-        root.tk.call("set_theme", "dark")
-        dark_icon = icon_to_image("moon", fill="#000", scale_to_width=64)
-        theme_button.configure(image=dark_icon)
 
 
 def threadsafe_print(text, end, frame):
@@ -146,13 +128,14 @@ def main(theme_name, theme_source):
     root.protocol("WM_DELETE_WINDOW", threadsafe_exit)  # set exit callback
 
     # check "themes/azure.tcl" exists relative to current directory
+    theme_source = os.path.join(os.path.dirname(os.path.abspath(sys.argv[0])), theme_source)
     if os.path.isfile(theme_source):
         logging.info("Loading Azure theme")
         # set initial theme
         root.tk.call("source", theme_source)
         root.tk.call("set_theme", theme_name)
     else:
-        logging.info("Azure theme not found, using default theme")
+        logging.info(f"Azure theme not found in {theme_source}, using default theme")
 
     # add light/dark mode toggle
     # light_icon = icon_to_image("sun", fill="#fff", scale_to_width=32)
@@ -166,11 +149,21 @@ def main(theme_name, theme_source):
     canvas = tk.Canvas(root, width=800, height=600,
                        yscrollcommand=scrollbar.set)
     canvas.pack(side=tk.LEFT, fill=tk.BOTH)
+
+    #set canvas background red
     scrollbar.config(command=canvas.yview)
 
-    # add a frame to the canvas
-    frame = tk.Frame(canvas, width=800, height=600)
-    canvas.create_window((0, 0), window=frame, anchor='center')
+
+    # add a centered frame to the canvas
+    frame = tk.Frame(canvas)
+    frame.pack(fill=tk.BOTH, expand=True)
+
+    # offset the canvas to the center of the window
+    logging.debug("Screen width: %s, Screen height: %s", root.winfo_width(), root.winfo_height())
+    x_offset = 400
+    y_offset = 100
+
+    canvas.create_window((x_offset, y_offset), window=frame, anchor=tk.CENTER)
 
     # return root to enter mainloop
     dynamic_mainloop(root, canvas, frame)
@@ -201,6 +194,19 @@ def dynamic_mainloop(root, canvas, frame):
             elif item[0] == "footer":
                 # render footer with options to export/quit
                 threadsafe_footer(frame, canvas)
+            elif item[0] == "clear":
+                # clear frame children
+                frame.destroy()
+
+                # add a new frame to the canvas
+                frame = tk.Frame(canvas)
+                frame.pack(fill=tk.BOTH, expand=True)
+
+                # offset the canvas to the center of the window
+                x_offset = 400
+                y_offset = 100
+
+                canvas.create_window((x_offset, y_offset), window=frame, anchor=tk.CENTER)
 
         # update gui
         root.update()

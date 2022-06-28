@@ -5,10 +5,10 @@ Override IO functions to display in Tkinter GUI.
 import logging
 from inspect import currentframe
 import re
-from autogui.internals import __script__, __threadsafe_queue_io__, __threadsafe_queue_tk__, run
+from pythonautogui.internals import __script__, __threadsafe_queue_io__, __threadsafe_queue_tk__, run
 
 
-def print(text, end="\n"):
+def print(text="", end="\n"):
     """
     Override the print function to display in the tkinter gui.
     Add print call to threadsafe queue.
@@ -84,3 +84,14 @@ def footer():
 
     # add footer call to thread-safe queue
     __threadsafe_queue_tk__.put(("footer",))
+
+
+def clear():
+    """
+    Override the clear function to clear the tkinter gui.
+    Add clear call to threadsafe queue.
+    """
+    logging.debug("clear")
+
+    # add clear call to thread-safe queue
+    __threadsafe_queue_tk__.put(("clear",))

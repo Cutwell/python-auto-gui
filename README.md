@@ -1,9 +1,14 @@
-# Python automatic GUI
+# Python Auto GUI
 _Generate a Tkinter GUI from any Python program_
 
 - Creates a Tkinter GUI to replace any command line interface
 - Interprets your existing code, removing the need for programming a GUI by hand.
 - Dynamically generates tidy applications, with quality of life features such as exporting data to CSV or PDF.
+
+| | | |
+|---|---|---|
+| ![adventure](.github/images/adventure.png) | ![quiz](.github/images/quiz.png) | ![greetings](.github/images/greetings.png) |
+| A choose-your-own adventure | A simple maths quiz | A hello world example |
 
 ## Quick-start
 ```python
@@ -61,7 +66,8 @@ In order to work as a drop-in solution for existing code, we override existing f
 
 ## Themeing
 Tkinter supports themes to improve the default look and feel of the GUI.
-[rdbende/Azure-ttk-theme](https://github.com/rdbende/Azure-ttk-theme) is the default theme shipped with this package (with "light" (default) and "dark" themes).
+[rdbende/Azure-ttk-theme](https://github.com/rdbende/Azure-ttk-theme) is the theme used in screenshots for this package (with "light" (default) and "dark" themes).
+If no theme folder is found in `themes/azure.tcl` relative to the main `.py` file, the default tkinter theme is used.
 
 *Setting a new theme*
 ```python
